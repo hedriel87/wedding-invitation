@@ -8,7 +8,7 @@
 <!-- Open Graph: 카카오톡 / SNS 링크 미리보기 -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://yooninae1017wedding.com/">
-<meta property="og:title" content="황윤성 ♥ 이인애 결혼합니다">
+<meta property="og:title" content="황윤성 · 이인애 결혼합니다">
 <meta property="og:description" content="2026년 10월 17일 토요일 오후 6시 · 상록아트홀">
 <meta property="og:image" content="https://yooninae1017wedding.com/kakao.jpg">
 <meta property="og:image:width" content="1200">
@@ -18,11 +18,11 @@
 <meta property="og:site_name" content="황윤성 ♥ 이인애 결혼식">
 
 <!-- 일반 검색/공유용 설명 -->
-<meta name="description" content="황윤성 ♥ 이인애의 결혼식에 초대합니다. 2026년 10월 17일 토요일 오후 6시, 상록아트홀">
+<meta name="description" content="황윤성 · 이인애 결혼식에 초대합니다. 2026년 10월 17일 토요일 오후 6시 · 상록아트홀">
 
 <!-- Twitter/X 링크 미리보기 -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="황윤성 ♥ 이인애 결혼합니다">
+<meta name="twitter:title" content="황윤성 · 이인애 결혼합니다">
 <meta name="twitter:description" content="2026년 10월 17일 토요일 오후 6시 · 상록아트홀">
 <meta name="twitter:image" content="https://yooninae1017wedding.com/kakao.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -619,6 +619,25 @@
     line-height:1.9;
   }
 
+  /* ---------- RSVP ADMIN ---------- */
+  .rsvp-admin-wrap{margin-top:28px;text-align:center;}
+  .rsvp-admin-link{border:0;background:none;color:#A69A8D;font-size:11px;letter-spacing:.08em;text-decoration:underline;cursor:pointer;padding:8px;}
+  .rsvp-admin-panel{display:none;margin-top:14px;background:var(--white);border:1px solid var(--line);border-radius:6px;padding:22px;text-align:left;}
+  .rsvp-admin-panel.show{display:block;}
+  .rsvp-admin-login{display:flex;gap:8px;}
+  .rsvp-admin-login input{flex:1;min-width:0;padding:10px;border:1px solid var(--line);border-radius:3px;background:var(--ivory);font-size:13px;}
+  .rsvp-admin-login button,.rsvp-refresh{padding:10px 14px;border:1px solid var(--line);border-radius:3px;background:var(--ink);color:#fff;font-size:12px;cursor:pointer;}
+  .rsvp-admin-msg{margin-top:10px;font-size:12px;color:var(--ink-soft);line-height:1.7;}
+  .rsvp-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:16px 0;}
+  .rsvp-stat{background:var(--ivory);border:1px solid var(--line);border-radius:4px;padding:10px 5px;text-align:center;}
+  .rsvp-stat b{display:block;font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;}
+  .rsvp-stat span{font-size:10px;color:var(--ink-soft);}
+  .rsvp-table-wrap{overflow-x:auto;}
+  .rsvp-table{width:100%;border-collapse:collapse;font-size:11px;white-space:nowrap;}
+  .rsvp-table th,.rsvp-table td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;}
+  .rsvp-table th{font-family:'Noto Serif KR',serif;font-weight:400;}
+  .rsvp-empty{text-align:center;padding:20px;color:#A69A8D;font-size:12px;}
+
   /* ---------- closing ---------- */
   .closing{
     background:var(--ivory-deep);
@@ -852,6 +871,33 @@
         <div class="ico">✓</div>
         <p>소중한 답변 감사합니다.<br>전해주신 마음, 잘 받았습니다.</p>
       </div>
+
+      <div class="rsvp-admin-wrap">
+        <button class="rsvp-admin-link" type="button" onclick="toggleRsvpAdmin()">관리자 RSVP 확인</button>
+        <div class="rsvp-admin-panel" id="rsvpAdminPanel">
+          <div class="rsvp-admin-login">
+            <input type="password" id="rsvpAdminPassword" placeholder="관리자 비밀번호" autocomplete="current-password">
+            <button type="button" onclick="loadRsvpAdmin()">확인</button>
+          </div>
+          <div class="rsvp-admin-msg" id="rsvpAdminMsg">신랑·신부만 확인할 수 있도록 비밀번호를 입력해 주세요.</div>
+          <div id="rsvpAdminResult" style="display:none;">
+            <div class="rsvp-summary">
+              <div class="rsvp-stat"><b id="rsvpTotal">0</b><span>응답</span></div>
+              <div class="rsvp-stat"><b id="rsvpAttend">0</b><span>참석</span></div>
+              <div class="rsvp-stat"><b id="rsvpMaybe">0</b><span>미정</span></div>
+              <div class="rsvp-stat"><b id="rsvpAbsent">0</b><span>불참</span></div>
+            </div>
+            <div style="margin-bottom:12px;font-size:12px;color:var(--ink-soft);">참석 예정 인원: <strong id="rsvpPeople">0명</strong></div>
+            <button class="rsvp-refresh" type="button" onclick="loadRsvpAdmin(true)">새로고침</button>
+            <div class="rsvp-table-wrap" style="margin-top:12px;">
+              <table class="rsvp-table">
+                <thead><tr><th>성함</th><th>구분</th><th>참석 여부</th><th>인원</th><th>응답일시</th></tr></thead>
+                <tbody id="rsvpTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -970,28 +1016,97 @@
     document.getElementById('guestNum').textContent = rsvpGuests;
   }
 
+  // RSVP backend
+  // Google Apps Script Web App URL을 배포한 뒤 아래 값에 넣어주세요.
+  const RSVP_API_URL = 'https://script.google.com/macros/s/AKfycbz7yeeYbQ4LfneyFWWaTqsUH-g7dtbCcU_l58G9CBta8dc0Qbd61980n-T6VM1SVC1tiA/exec';
+
   document.getElementById('rsvpForm').addEventListener('submit', async (e)=>{
     e.preventDefault();
     const name = document.getElementById('rsvpName').value.trim();
     if(!name){ document.getElementById('rsvpName').focus(); return; }
 
-    const entry = {
-      name, side: rsvpSide, attend: rsvpAttend, guests: rsvpGuests,
-      submittedAt: new Date().toISOString()
-    };
-
-    try{
-      if(window.storage && window.storage.set){
-        const key = 'rsvp:' + Date.now() + '-' + Math.random().toString(36).slice(2,7);
-        await window.storage.set(key, JSON.stringify(entry), true);
-      }
-    }catch(err){
-      console.error('RSVP 저장 실패', err);
+    if(RSVP_API_URL.includes('PASTE_GOOGLE_APPS_SCRIPT')){
+      alert('RSVP 저장 서버가 아직 연결되지 않았습니다. 관리자에게 문의해 주세요.');
+      return;
     }
 
-    document.getElementById('rsvpForm').style.display = 'none';
-    document.getElementById('rsvpDone').classList.add('show');
+    const entry = {
+      action:'submit',
+      name, side:rsvpSide, attend:rsvpAttend, guests:rsvpGuests,
+      submittedAt:new Date().toISOString()
+    };
+
+    const submitBtn = document.querySelector('.rsvp-submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '전달 중...';
+
+    try{
+      const response = await fetch(RSVP_API_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify(entry)
+      });
+      const result = await response.json();
+      if(!result.ok) throw new Error(result.error || '저장 실패');
+
+      document.getElementById('rsvpForm').style.display = 'none';
+      document.getElementById('rsvpDone').classList.add('show');
+    }catch(err){
+      console.error('RSVP 저장 실패', err);
+      alert('참석 여부 전달에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = '참석 여부 전달하기';
+    }
   });
+
+  function toggleRsvpAdmin(){
+    document.getElementById('rsvpAdminPanel').classList.toggle('show');
+  }
+
+  async function loadRsvpAdmin(refresh=false){
+    const password = document.getElementById('rsvpAdminPassword').value;
+    const msg = document.getElementById('rsvpAdminMsg');
+    const resultBox = document.getElementById('rsvpAdminResult');
+    if(!password){ msg.textContent='관리자 비밀번호를 입력해 주세요.'; return; }
+    if(RSVP_API_URL.includes('PASTE_GOOGLE_APPS_SCRIPT')){
+      msg.textContent='RSVP 서버 연결이 아직 완료되지 않았습니다.';
+      return;
+    }
+    msg.textContent = refresh ? '응답을 새로 불러오는 중...' : '확인 중...';
+    try{
+      const response = await fetch(RSVP_API_URL + '?action=list&password=' + encodeURIComponent(password), {cache:'no-store'});
+      const data = await response.json();
+      if(!data.ok) throw new Error(data.error || '조회 실패');
+      const rows = Array.isArray(data.rows) ? data.rows : [];
+      const attendRows = rows.filter(r=>r.attend==='참석');
+      const maybeRows = rows.filter(r=>r.attend==='미정');
+      const absentRows = rows.filter(r=>r.attend==='불참');
+      document.getElementById('rsvpTotal').textContent=rows.length;
+      document.getElementById('rsvpAttend').textContent=attendRows.length;
+      document.getElementById('rsvpMaybe').textContent=maybeRows.length;
+      document.getElementById('rsvpAbsent').textContent=absentRows.length;
+      document.getElementById('rsvpPeople').textContent=attendRows.reduce((sum,r)=>sum+(Number(r.guests)||0),0)+'명';
+      const tbody=document.getElementById('rsvpTableBody');
+      tbody.innerHTML = rows.length ? rows.map(r=>`<tr><td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.side)}</td><td>${escapeHtml(r.attend)}</td><td>${Number(r.guests)||0}</td><td>${formatRsvpDate(r.submittedAt)}</td></tr>`).join('') : '<tr><td colspan="5" class="rsvp-empty">아직 접수된 RSVP가 없습니다.</td></tr>';
+      resultBox.style.display='block';
+      msg.textContent='총 '+rows.length+'건의 응답을 확인했습니다.';
+    }catch(err){
+      console.error('RSVP 조회 실패', err);
+      resultBox.style.display='none';
+      msg.textContent='비밀번호가 틀렸거나 RSVP 서버에 연결할 수 없습니다.';
+    }
+  }
+
+  function escapeHtml(value){
+    return String(value ?? '').replace(/[&<>"']/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+  }
+
+  function formatRsvpDate(value){
+    if(!value) return '-';
+    const d=new Date(value);
+    if(Number.isNaN(d.getTime())) return escapeHtml(value);
+    return d.toLocaleString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+  }
 
   // calendar .ics
   const icsContent = [
