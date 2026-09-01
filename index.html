@@ -990,7 +990,7 @@
       action: 'submit',
       name: name,
       side: rsvpSide,
-      attend: rsvpAttend,
+      attendance: rsvpAttend,
       guests: rsvpGuests,
       submittedAt: new Date().toISOString()
     };
@@ -1017,7 +1017,7 @@
         throw new Error('서버에서 올바른 응답을 받지 못했습니다.');
       }
 
-      if(!response.ok || !result.ok){
+      if(!response.ok || !result.success){
         throw new Error(result.error || 'RSVP 저장에 실패했습니다.');
       }
 
