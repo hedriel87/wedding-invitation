@@ -680,13 +680,13 @@
       <div class="msg">
         나무는 서로 다른 뿌리에서 자라<br>
         오랜 시간 마주보며 가지를 뻗어갑니다.<br><br>
-        저희 두 사람, <b>황윤성</b>과 <b>이인애</b>가<br>
+        저희 두 사람이<br>
         오랜 마주봄 끝에 하나의 그늘을 이루려 합니다.<br>
         바쁘시더라도 오셔서<br>
         따뜻한 마음으로 축복해 주시면<br>
         더없이 감사하고 행복하겠습니다.
       </div>
-      <div class="names-line"><span>황윤성</span> · <span>이인애</span> 두 사람 올림</div>
+      <div class="names-line">황수득, 홍영숙의 아들 윤성 · 이창원, 허순회의 딸 인애<br>두 사람 올림</div>
     </div>
   </section>
 
@@ -787,6 +787,36 @@
 
         <div class="account-card">
           <button class="account-toggle" onclick="toggleAccount(this)">
+            <span class="who">신랑측 <span class="tag">황수득 · 아버지</span></span>
+            <span class="chev">▾</span>
+          </button>
+          <div class="account-detail">
+            <div class="account-detail-inner">
+              <div class="account-bank">KB국민은행</div>
+              <div class="account-num">067-01-0266-721</div>
+              <div class="account-holder">예금주 황수득</div>
+              <button class="copy-btn" onclick="copyAccount(this, '067-01-0266-721')">계좌번호 복사</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="account-card">
+          <button class="account-toggle" onclick="toggleAccount(this)">
+            <span class="who">신랑측 <span class="tag">홍영숙 · 어머니</span></span>
+            <span class="chev">▾</span>
+          </button>
+          <div class="account-detail">
+            <div class="account-detail-inner">
+              <div class="account-bank">KB국민은행</div>
+              <div class="account-num">805-21-0520-751</div>
+              <div class="account-holder">예금주 홍영숙</div>
+              <button class="copy-btn" onclick="copyAccount(this, '805-21-0520-751')">계좌번호 복사</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="account-card">
+          <button class="account-toggle" onclick="toggleAccount(this)">
             <span class="who">신부측 <span class="tag">이인애</span></span>
             <span class="chev">▾</span>
           </button>
@@ -796,6 +826,36 @@
               <div class="account-num">302-7220-3974-61</div>
               <div class="account-holder">예금주 이인애</div>
               <button class="copy-btn" onclick="copyAccount(this, '302-7220-3974-61')">계좌번호 복사</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="account-card">
+          <button class="account-toggle" onclick="toggleAccount(this)">
+            <span class="who">신부측 <span class="tag">이창원 · 아버지</span></span>
+            <span class="chev">▾</span>
+          </button>
+          <div class="account-detail">
+            <div class="account-detail-inner">
+              <div class="account-bank">농협은행</div>
+              <div class="account-num">164-02-054134</div>
+              <div class="account-holder">예금주 이창원</div>
+              <button class="copy-btn" onclick="copyAccount(this, '164-02-054134')">계좌번호 복사</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="account-card">
+          <button class="account-toggle" onclick="toggleAccount(this)">
+            <span class="who">신부측 <span class="tag">허순회 · 어머니</span></span>
+            <span class="chev">▾</span>
+          </button>
+          <div class="account-detail">
+            <div class="account-detail-inner">
+              <div class="account-bank">NH농협은행</div>
+              <div class="account-num">111-02-321052</div>
+              <div class="account-holder">예금주 허순회</div>
+              <button class="copy-btn" onclick="copyAccount(this, '111-02-321052')">계좌번호 복사</button>
             </div>
           </div>
         </div>
@@ -972,7 +1032,7 @@
 
   // RSVP backend - Google Apps Script Web App
   // 새로 배포한 Web App URL을 사용합니다.
-  const RSVP_API_URL = 'https://script.google.com/macros/s/AKfycbz7yeeYbQ4LfneyFWWaTqsUH-g7dtbCcU_l58G9CBta8dc0Qbd61980n-T6VM1SVC1tiA/exec';
+  const RSVP_API_URL = 'https://script.google.com/macros/s/AKfycbyVERn3l_cbBI-fKayJ4S_cGWbMUo6sRjZZpstu4F_lVVOMugE03gqEjZ0-y6On4o_kZw/exec';
 
   document.getElementById('rsvpForm').addEventListener('submit', async (e)=>{
     e.preventDefault();
@@ -990,7 +1050,7 @@
       action: 'submit',
       name: name,
       side: rsvpSide,
-      attendance: rsvpAttend,
+      attend: rsvpAttend,
       guests: rsvpGuests,
       submittedAt: new Date().toISOString()
     };
@@ -1017,7 +1077,7 @@
         throw new Error('서버에서 올바른 응답을 받지 못했습니다.');
       }
 
-      if(!response.ok || !result.success){
+      if(!response.ok || !result.ok){
         throw new Error(result.error || 'RSVP 저장에 실패했습니다.');
       }
 
