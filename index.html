@@ -465,7 +465,7 @@
     overflow:hidden;
     transition:max-height 0.35s ease;
   }
-  .account-detail.open{max-height:140px;}
+  .account-detail.open{max-height:420px;}
   .account-detail-inner{
     padding:0 20px 20px;
     text-align:left;
@@ -488,6 +488,18 @@
     margin-top:4px;
     font-size:12px;
     color:var(--ink-soft);
+  }
+  .parent-account + .parent-account{
+    margin-top:18px;
+    padding-top:18px;
+    border-top:1px solid var(--ivory-deep);
+  }
+  .parent-account .account-holder{
+    margin-top:0;
+    color:var(--ink);
+  }
+  .parent-account .account-holder strong{
+    font-weight:500;
   }
   .copy-btn{
     margin-top:12px;
@@ -699,8 +711,8 @@
       <div class="msg">
         나무는 서로 다른 뿌리에서 자라<br>
         오랜 시간 마주보며 가지를 뻗어갑니다.<br><br>
-        저희 두 사람, <b>황윤성</b>과 <b>이인애</b>가<br>
-        오랜 마주봄 끝에 하나의 그늘을 이루려 합니다.<br>
+        저희 두 사람이 오랜 마주봄 끝에<br>
+        하나의 그늘을 이루려 합니다.<br>
         바쁘시더라도 오셔서<br>
         따뜻한 마음으로 축복해 주시면<br>
         더없이 감사하고 행복하겠습니다.
@@ -791,30 +803,46 @@
       <div class="account-cards">
         <div class="account-card">
           <button class="account-toggle" onclick="toggleAccount(this)">
-            <span class="who">신랑측 <span class="tag">황윤성</span></span>
+            <span class="who">신랑측 <span class="tag">황윤성 가족</span></span>
             <span class="chev">▾</span>
           </button>
           <div class="account-detail">
             <div class="account-detail-inner">
-              <div class="account-bank">NH농협은행</div>
-              <div class="account-num">312-2729-3475-51</div>
-              <div class="account-holder">예금주 황윤성</div>
-              <button class="copy-btn" onclick="copyAccount(this, '312-2729-3475-51')">계좌번호 복사</button>
+              <div class="parent-account">
+                <div class="account-holder"><strong>신랑 아버지 황수득</strong></div>
+                <div class="account-bank">국민은행</div>
+                <div class="account-num">067-01-0266-721</div>
+                <button class="copy-btn" onclick="copyAccount(this, '067-01-0266-721')">계좌번호 복사</button>
+              </div>
+              <div class="parent-account">
+                <div class="account-holder"><strong>신랑 어머니 홍영숙</strong></div>
+                <div class="account-bank">국민은행</div>
+                <div class="account-num">805-21-0520-751</div>
+                <button class="copy-btn" onclick="copyAccount(this, '805-21-0520-751')">계좌번호 복사</button>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="account-card">
           <button class="account-toggle" onclick="toggleAccount(this)">
-            <span class="who">신부측 <span class="tag">이인애</span></span>
+            <span class="who">신부측 <span class="tag">이인애 가족</span></span>
             <span class="chev">▾</span>
           </button>
           <div class="account-detail">
             <div class="account-detail-inner">
-              <div class="account-bank">NH농협은행</div>
-              <div class="account-num">302-7220-3974-61</div>
-              <div class="account-holder">예금주 이인애</div>
-              <button class="copy-btn" onclick="copyAccount(this, '302-7220-3974-61')">계좌번호 복사</button>
+              <div class="parent-account">
+                <div class="account-holder"><strong>신부 아버지 이창원</strong></div>
+                <div class="account-bank">농협은행</div>
+                <div class="account-num">164-02-054134</div>
+                <button class="copy-btn" onclick="copyAccount(this, '164-02-054134')">계좌번호 복사</button>
+              </div>
+              <div class="parent-account">
+                <div class="account-holder"><strong>신부 어머니 허순회</strong></div>
+                <div class="account-bank">농협은행</div>
+                <div class="account-num">111-02-321052</div>
+                <button class="copy-btn" onclick="copyAccount(this, '111-02-321052')">계좌번호 복사</button>
+              </div>
             </div>
           </div>
         </div>
